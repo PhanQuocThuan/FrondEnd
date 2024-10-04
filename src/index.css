@@ -1,0 +1,13 @@
+.table > :not(:first-child) {
+  border-top: none;
+}
+
+.bt-5 {
+  border-top-width: 5px;
+}
+
+.required::after {
+  content: "*";
+  color: red;
+  margin-left: 3px;
+}
