@@ -1,44 +1,15 @@
-import React, { useState } from "react";
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-}
+import React, { useContext } from "react";
+import { CartContext } from "../component/CartContext";
 
 const Cart: React.FC = () => {
-  const [cart, setCart] = useState<Product[]>([]);
+  const { cart, increaseQuantity, decreaseQuantity, removeFromCart } =
+    useContext(CartContext);
 
   const getTotalPrice = () => {
     return cart.reduce(
       (total, product) => total + product.price * product.quantity,
       0
     );
-  };
-
-  const increaseQuantity = (id: number) => {
-    setCart(
-      cart.map((product) =>
-        product.id === id
-          ? { ...product, quantity: product.quantity + 1 }
-          : product
-      )
-    );
-  };
-
-  const decreaseQuantity = (id: number) => {
-    setCart(
-      cart.map((product) =>
-        product.id === id && product.quantity > 1
-          ? { ...product, quantity: product.quantity - 1 }
-          : product
-      )
-    );
-  };
-
-  const removeFromCart = (id: number) => {
-    setCart(cart.filter((product) => product.id !== id));
   };
 
   return (
@@ -48,19 +19,45 @@ const Cart: React.FC = () => {
       ) : (
         <ul>
           {cart.map((product) => (
-            <li key={product.id}>
-              <span>{product.name}</span>
-              <span>Price: ${product.price}</span>
-              <span>Quantity: {product.quantity}</span>
-              <button onClick={() => increaseQuantity(product.id)}>+</button>
-              <button onClick={() => decreaseQuantity(product.id)}>-</button>
-              <button onClick={() => removeFromCart(product.id)}>Remove</button>
-            </li>
+            <div className="container border border-2 border-dark my-3">
+              <div className="row" key={product.id}>
+                <img
+                  src={product.img}
+                  alt={product.name}
+                  width="100"
+                  height="100%"
+                  className="col-1 me-1"
+                />
+                <div className="col-2">{product.name}</div>
+                <div className="col-3">Price: {product.price} vnd</div>
+                <div className="col-1">Quantity: {product.quantity}</div>
+                <div className="col-3">
+                  <button
+                    className="btn btn-success me-2"
+                    onClick={() => increaseQuantity(product.id)}
+                  >
+                    +
+                  </button>
+                  <button
+                    className="btn btn-warning me-2"
+                    onClick={() => decreaseQuantity(product.id)}
+                  >
+                    -
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => removeFromCart(product.id)}
+                  >
+                    Xóa
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
         </ul>
       )}
       <div className="cart-total">
-        <h3>Total Price: ${getTotalPrice()}</h3>
+        <h3>Tổng: {getTotalPrice()} vnd</h3>
       </div>
     </div>
   );

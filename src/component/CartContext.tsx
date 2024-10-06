@@ -1,9 +1,9 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, { createContext, useState, ReactNode } from "react";
 
-// Định nghĩa loại Product
 interface Product {
   id: number;
   name: string;
+  img: any;
   price: number;
   quantity: number;
 }
@@ -11,42 +11,63 @@ interface Product {
 interface CartContextType {
   cart: Product[];
   addToCart: (product: Product) => void;
+  increaseQuantity: (id: number) => void;
+  decreaseQuantity: (id: number) => void;
   removeFromCart: (id: number) => void;
 }
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+export const CartContext = createContext<CartContextType>({
+  cart: [],
+  addToCart: () => {},
+  increaseQuantity: () => {},
+  decreaseQuantity: () => {},
+  removeFromCart: () => {},
+});
 
-export const useCart = () => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error("useCart must be used within a CartProvider");
-  }
-  return context;
-};
+interface CartProviderProps {
+  children: ReactNode;
+}
 
-export const CartProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = useState<Product[]>([]);
 
   const addToCart = (product: Product) => {
-    setCart((prevCart) => {
-      const existingProduct = prevCart.find((p) => p.id === product.id);
-      if (existingProduct) {
-        return prevCart.map((p) =>
-          p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
-        );
-      }
-      return [...prevCart, { ...product, quantity: 1 }];
-    });
+    setCart((prevCart) => [...prevCart, product]);
+  };
+  const increaseQuantity = (id: number) => {
+    setCart(
+      cart.map((product) =>
+        product.id === id
+          ? { ...product, quantity: product.quantity + 1 }
+          : product
+      )
+    );
+  };
+
+  const decreaseQuantity = (id: number) => {
+    setCart(
+      cart.map((product) =>
+        product.id === id && product.quantity > 1
+          ? { ...product, quantity: product.quantity - 1 }
+          : product
+      )
+    );
   };
 
   const removeFromCart = (id: number) => {
-    setCart((prevCart) => prevCart.filter((product) => product.id !== id));
+    setCart(cart.filter((product) => product.id !== id));
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addToCart,
+        increaseQuantity,
+        decreaseQuantity,
+        removeFromCart,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
