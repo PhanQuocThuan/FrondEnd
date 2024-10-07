@@ -10,21 +10,26 @@ const OtherCake = () => {
       </div>
       <div className="row justify-content-center justify-content-around">
         <Product
+          id={9}
           img={`${process.env.PUBLIC_URL}/images/cake/BanhChung.jpg`}
           name="Bánh Chưng"
           price={320000}
+          status={true}
         />
         <Product
+          id={10}
           img={`${process.env.PUBLIC_URL}/images/cake/BanhPia.jpg`}
           name="Bánh Pía"
           price={100000}
         />
         <Product
+          id={11}
           img={`${process.env.PUBLIC_URL}/images/cake/BanhTet.jpg`}
           name="Bánh Tét"
           price={150000}
         />
         <Product
+          id={12}
           img={`${process.env.PUBLIC_URL}/images/cake/BanhMiTron.jpg`}
           name="Bánh Mì Tròn"
           price={200000}
@@ -32,21 +37,25 @@ const OtherCake = () => {
       </div>
       <div className="row justify-content-center justify-content-around">
         <Product
+          id={13}
           img={`${process.env.PUBLIC_URL}/images/cake/BriocheBread.jpg`}
           name="Brioche Bread"
           price={220000}
         />
         <Product
+          id={14}
           img={`${process.env.PUBLIC_URL}/images/cake/ChallahBread.jpg`}
           name="Challah Bread"
           price={90000}
         />
         <Product
+          id={15}
           img={`${process.env.PUBLIC_URL}/images/cake/MiNem.jpg`}
           name="Bánh mì nem"
           price={120000}
         />
         <Product
+          id={16}
           img={`${process.env.PUBLIC_URL}/images/cake/SwirlBread.jpg`}
           name="Swirl Bread"
           price={250000}

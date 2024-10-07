@@ -5,7 +5,7 @@ import { CartContext } from "../component/CartContext"; // Import CartContext
 import { Link } from "react-router-dom";
 
 interface Props {
-  id?: string;
+  id: number;
   img: any;
   name: string;
   price: number;
