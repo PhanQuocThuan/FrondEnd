@@ -5,7 +5,7 @@ import { CartContext } from "../component/CartContext"; // Import CartContext
 import { Link } from "react-router-dom";
 
 interface Props {
-  id: string;
+  id?: string;
   img: any;
   name: string;
   price: number;
@@ -14,10 +14,10 @@ interface Props {
 }
 
 const Product: React.FC<Props> = ({ img, name, price, status, id }) => {
-  const { addToCart } = useContext(CartContext); // Lấy addToCart từ CartContext
+  const { addToCart } = useContext(CartContext);
 
   const handleAddToCart = () => {
-    addToCart({ id, name, price, quantity: 1, img }); // Sử dụng id từ props
+    addToCart({ id, name, price, quantity: 1, img });
   };
 
   return (
