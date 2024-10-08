@@ -1,5 +1,5 @@
-import React from "react";
-import { Layout, Menu, Avatar, Input } from "antd";
+import React, { useState } from "react";
+import { Layout, Menu, Avatar, Input, message } from "antd";
 import { Link, Outlet } from "react-router-dom";
 import {
   DashboardOutlined,
@@ -14,6 +14,20 @@ const { Header, Sider, Content } = Layout;
 const { Search } = Input;
 
 const Admin: React.FC = () => {
+  const [avatar, setAvatar] = useState("https://example.com/your-avatar-url.png");
+
+  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result as string);
+        message.success("Avatar updated successfully!");
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible>
@@ -22,13 +36,13 @@ const Admin: React.FC = () => {
             <Link to="/admin/dashboard">Dashboard</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<UserOutlined />}>
-            <Link to="/admin/users">Users</Link> {/* Thay đổi link tới Users */}
+            <Link to="/admin/profile">Profile</Link>
           </Menu.Item>
           <Menu.Item key="3" icon={<AppstoreOutlined />}>
             <Link to="/admin/products">Products</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<UnorderedListOutlined />}>
-            <Link to="/admin/List">List</Link> {/* Có thể giữ lại nếu cần */}
+            <Link to="/admin/List">List</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -45,10 +59,17 @@ const Admin: React.FC = () => {
             <div style={{ display: "flex", alignItems: "center" }}>
               <BellOutlined style={{ fontSize: 24, marginRight: 16 }} />
               <SettingOutlined style={{ fontSize: 24, marginRight: 16 }} />
-              <Avatar
-                size="large"
-                src="https://example.com/your-avatar-url.png"
+              <Avatar size="large" src={avatar} />
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleAvatarChange} 
+                style={{ marginLeft: 10, display: 'none' }} 
+                id="avatar-upload" 
               />
+              <label htmlFor="avatar-upload" style={{ cursor: 'pointer' }}>
+                <span style={{ marginLeft: 10 }}>Change Avatar</span>
+              </label>
             </div>
           </div>
         </Header>

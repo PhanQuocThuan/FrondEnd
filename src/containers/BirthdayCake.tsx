@@ -21,17 +21,19 @@ const BirthdayCake = () => {
       <div id="row justify-content-center align-items-center">
         <h2>BÁNH SINH NHẬT CỦA CHÚNG TÔI</h2>
       </div>
-      <div className="row justify-content-center justify-content-around">
-        {cakes.map((cake) => (
-          <Product
-            key={cake.id}
-            id={cake.id}
-            img={cake.img}
-            name={cake.name}
-            price={cake.price}
-            status={cake.status}
-          />
-        ))}
+      <div className="container">
+        <div className="row">
+          {cakes.map((cake) => (
+            <Product
+              key={cake.id}
+              id={cake.id}
+              img={cake.img}
+              name={cake.name}
+              price={cake.price}
+              status={cake.status}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

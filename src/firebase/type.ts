@@ -4,5 +4,5 @@ export interface Product {
   img: string;
   name: string;
   price: number;
-  status?: boolean; // Nếu status là tùy chọn
+  status?: boolean;
 }
