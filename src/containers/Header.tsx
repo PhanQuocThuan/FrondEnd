@@ -84,11 +84,6 @@ const Header = () => {
             </li>
             <li className="nav-item">
               <NavLink to="/#" className="nav-link">
-                Món Tráng Miệng
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/#" className="nav-link">
                 Tin Tức
               </NavLink>
             </li>
@@ -196,11 +191,6 @@ const Header = () => {
             <li className="nav-item">
               <NavLink to="/other" className="nav-link">
                 Bánh khác
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/#" className="nav-link">
-                Món Tráng Miệng
               </NavLink>
             </li>
             <li className="nav-item">

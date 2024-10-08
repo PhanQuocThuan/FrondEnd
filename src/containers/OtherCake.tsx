@@ -33,6 +33,7 @@ const OtherCake = () => {
           img={`${process.env.PUBLIC_URL}/images/cake/BanhMiTron.jpg`}
           name="Bánh Mì Tròn"
           price={200000}
+          status={true}
         />
       </div>
       <div className="row justify-content-center justify-content-around">
@@ -41,6 +42,7 @@ const OtherCake = () => {
           img={`${process.env.PUBLIC_URL}/images/cake/BriocheBread.jpg`}
           name="Brioche Bread"
           price={220000}
+          status={true}
         />
         <Product
           id={14}
@@ -53,12 +55,14 @@ const OtherCake = () => {
           img={`${process.env.PUBLIC_URL}/images/cake/MiNem.jpg`}
           name="Bánh mì nem"
           price={120000}
+          status={true}
         />
         <Product
           id={16}
           img={`${process.env.PUBLIC_URL}/images/cake/SwirlBread.jpg`}
           name="Swirl Bread"
           price={250000}
+          status={true}
         />
       </div>
     </div>

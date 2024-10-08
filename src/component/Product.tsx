@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { CartContext } from "../component/CartContext"; // Import CartContext
+import { CartContext } from "../component/CartContext";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -29,7 +29,7 @@ const Product: React.FC<Props> = ({ img, name, price, status, id }) => {
       />
       <div className="tittle bg-danger-subtle text-danger-emphasis rounded-bottom-4">
         <h5 className="card-title fw-bold text-center">{name}</h5>
-        <p className="card-text fw-semibold text-center fs-5">{price} vnd</p>
+        <p className="card-text fw-semibold text-center fs-5">{price} VND</p>
         <Link to={`/product/${id}`} className="btn btn-primary">
           Xem chi tiết
         </Link>

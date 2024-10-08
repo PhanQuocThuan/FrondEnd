@@ -57,7 +57,7 @@ const Cart: React.FC = () => {
         </ul>
       )}
       <div className="cart-total">
-        <h3>Tổng: {getTotalPrice()} vnd</h3>
+        <h3>Tổng: {getTotalPrice()} VND</h3>
       </div>
     </div>
   );

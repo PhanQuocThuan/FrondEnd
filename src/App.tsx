@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BirthDay from "./view/Birthday";
 import Other from "./view/Other";
 import Cart from "./view/Cart";
+import ProductDetail from "./component/ProductDetail";
 import { CartProvider } from "./component/CartContext";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/birthday" element={<BirthDay />} />
           <Route path="/other" element={<Other />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </Router>
     </CartProvider>
