@@ -1,7 +1,7 @@
 import React, { createContext, useState, ReactNode } from "react";
 
 interface Product {
-  id: number;
+  id: string;
   name: string;
   img: any;
   price: number;

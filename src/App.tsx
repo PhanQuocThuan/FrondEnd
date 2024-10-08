@@ -9,6 +9,7 @@ import { CartProvider } from "./component/CartContext";
 import Admin from "./Layout/admin";
 import List from "./page/list";
 import Products from "./page/products";
+import { AuthProvider } from "firebase/auth";
 function App() {
   return (
     <CartProvider>
