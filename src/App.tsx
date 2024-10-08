@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import BirthDay from "./view/Birthday";
 import Other from "./view/Other";
 import Cart from "./view/Cart";
-import ProductDetail from "./component/ProductDetail";
 import { CartProvider } from "./component/CartContext";
-
+import Admin from "./Layout/admin";
+import List from "./page/list";
+import Products from "./page/products";
 function App() {
   return (
     <CartProvider>
@@ -19,7 +20,10 @@ function App() {
           <Route path="/birthday" element={<BirthDay />} />
           <Route path="/other" element={<Other />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/admin" element={<Admin />}>
+            <Route path="List" element={<List />} />
+            <Route path="products" element={<Products />} />
+          </Route>
         </Routes>
       </Router>
     </CartProvider>
