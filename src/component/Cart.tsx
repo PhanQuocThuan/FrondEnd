@@ -19,17 +19,19 @@ const Cart: React.FC = () => {
       ) : (
         <ul>
           {cart.map((product) => (
-            <div className="container border border-2 border-dark my-3">
+            <div className="container my-3 justify-content-center">
               <div className="row" key={product.id}>
                 <img
                   src={product.img}
                   alt={product.name}
                   width="100"
                   height="100%"
-                  className="col-1 me-1"
+                  className="col-1"
                 />
-                <div className="col-2">{product.name}</div>
-                <div className="col-3">Price: {product.price} vnd</div>
+                <div className="col-2">
+                  <div className="col">{product.name}</div>Price:{" "}
+                  {product.price} vnd
+                </div>
                 <div className="col-1">Quantity: {product.quantity}</div>
                 <div className="col-3">
                   <button

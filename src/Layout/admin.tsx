@@ -14,7 +14,9 @@ const { Header, Sider, Content } = Layout;
 const { Search } = Input;
 
 const Admin: React.FC = () => {
-  const [avatar, setAvatar] = useState("https://example.com/your-avatar-url.png");
+  const [avatar, setAvatar] = useState(
+    "https://example.com/your-avatar-url.png"
+  );
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -42,7 +44,7 @@ const Admin: React.FC = () => {
             <Link to="/admin/products">Products</Link>
           </Menu.Item>
           <Menu.Item key="4" icon={<UnorderedListOutlined />}>
-            <Link to="/admin/List">List</Link>
+            <Link to="/admin/user">User</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -60,14 +62,14 @@ const Admin: React.FC = () => {
               <BellOutlined style={{ fontSize: 24, marginRight: 16 }} />
               <SettingOutlined style={{ fontSize: 24, marginRight: 16 }} />
               <Avatar size="large" src={avatar} />
-              <input 
-                type="file" 
-                accept="image/*" 
-                onChange={handleAvatarChange} 
-                style={{ marginLeft: 10, display: 'none' }} 
-                id="avatar-upload" 
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                style={{ marginLeft: 10, display: "none" }}
+                id="avatar-upload"
               />
-              <label htmlFor="avatar-upload" style={{ cursor: 'pointer' }}>
+              <label htmlFor="avatar-upload" style={{ cursor: "pointer" }}>
                 <span style={{ marginLeft: 10 }}>Change Avatar</span>
               </label>
             </div>

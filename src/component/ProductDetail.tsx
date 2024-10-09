@@ -1,17 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../component/CartContext";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "./../firebase/firebase";
+import { doc, getDocs, collection } from "firebase/firestore";
+import { firestore } from "./../firebase/firebase";
 
 interface Product {
-  id: number;
+  id: string;
   img: string;
   name: string;
   price: number;
   status: boolean;
   quantity: number;
   description: string;
+  collection: string | undefined;
 }
 
 const ProductDetail: React.FC = () => {
@@ -22,7 +23,7 @@ const ProductDetail: React.FC = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const querySnapshot = await getDocs(collection(db, "products"));
+      const querySnapshot = await getDocs(collection(firestore, "products"));
       querySnapshot.forEach((doc) => {
         console.log(`${doc.id} => ${doc.data()}`);
       });

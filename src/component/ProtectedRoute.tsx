@@ -1,20 +1,35 @@
-import React, { useContext, ReactNode } from "react";
-import { Navigate } from "react-router-dom";
-import { AuthContext } from "../containers/AuthProvider"; // Đảm bảo đường dẫn đúng
+import React, { createContext, useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth"; // Giả sử bạn dùng Firebase
+import { auth } from "../firebase/firebase"; // Đảm bảo đúng đường dẫn
 
-interface ProtectedRouteProps {
-  children: ReactNode; // Chỉ định kiểu cho children
+interface AuthContextProps {
+  currentUser: any; // Thay đổi kiểu dữ liệu nếu cần
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { currentUser } = useContext(AuthContext);
+export const AuthContext = createContext<AuthContextProps | null>(null);
 
-  // Kiểm tra kiểu của currentUser
-  if (!currentUser) {
-    return <Navigate to="/login" />;
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  return <>{children}</>; // Trả về children
+  return (
+    <AuthContext.Provider value={{ currentUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
-
-export default ProtectedRoute;

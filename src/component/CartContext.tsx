@@ -11,9 +11,9 @@ interface Product {
 interface CartContextType {
   cart: Product[];
   addToCart: (product: Product) => void;
-  increaseQuantity: (id: number) => void;
-  decreaseQuantity: (id: number) => void;
-  removeFromCart: (id: number) => void;
+  increaseQuantity: (id: string) => void;
+  decreaseQuantity: (id: string) => void;
+  removeFromCart: (id: string) => void;
 }
 
 export const CartContext = createContext<CartContextType>({
@@ -34,7 +34,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const addToCart = (product: Product) => {
     setCart((prevCart) => [...prevCart, product]);
   };
-  const increaseQuantity = (id: number) => {
+  const increaseQuantity = (id: string) => {
     setCart(
       cart.map((product) =>
         product.id === id
@@ -44,7 +44,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     );
   };
 
-  const decreaseQuantity = (id: number) => {
+  const decreaseQuantity = (id: string) => {
     setCart(
       cart.map((product) =>
         product.id === id && product.quantity > 1
@@ -54,7 +54,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     );
   };
 
-  const removeFromCart = (id: number) => {
+  const removeFromCart = (id: string) => {
     setCart(cart.filter((product) => product.id !== id));
   };
 

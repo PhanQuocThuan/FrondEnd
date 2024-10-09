@@ -7,12 +7,15 @@ import Other from "./view/Other";
 import Cart from "./view/Cart";
 import { CartProvider } from "./component/CartContext";
 import Admin from "./Layout/admin";
-import List from "./page/list";
-import Products from "./page/products";
-import { AuthProvider } from "firebase/auth";
+import User from "./page/AdminUsers";
+import Products from "./page/AdminProducts";
+import Dashboard from "./page/Dashboard";
+import Profile from "./page/Profile";
+// import { AuthContext } from "./containers/AuthProvider";
 function App() {
   return (
     <CartProvider>
+      {/* <AuthContext> */}
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -22,11 +25,14 @@ function App() {
           <Route path="/other" element={<Other />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/admin" element={<Admin />}>
-            <Route path="List" element={<List />} />
+            <Route path="user" element={<User />} />
             <Route path="products" element={<Products />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
         </Routes>
       </Router>
+      {/* // <AuthProvider> */}
     </CartProvider>
   );
 }
