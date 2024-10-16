@@ -1,13 +1,12 @@
-// src/component/Product.tsx
 import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
-import { CartContext } from "./CartContext"; // Đảm bảo đường dẫn là chính xác
+import { CartContext } from "./CartContext";
 import { Link } from "react-router-dom";
 
 interface Props {
-  id: string; // Đổi từ number sang string nếu id là chuỗi
-  img: string; // Đổi từ any sang string
+  id: string;
+  img: string;
   name: string;
   price: number;
   status?: boolean;
@@ -35,7 +34,11 @@ const Product: React.FC<Props> = ({ img, name, price, status, id }) => {
           Xem chi tiết
         </Link>
         <span className="contact-info d-flex align-items-center justify-content-around">
-          <button className="btn btn-outline-info" onClick={handleAddToCart}>
+          <button
+            className="btn btn-outline-info"
+            disabled={!status}
+            onClick={handleAddToCart}
+          >
             <FontAwesomeIcon icon={faShoppingCart} className="text-black" />
           </button>
           <span className="text-black d-inline text-center">

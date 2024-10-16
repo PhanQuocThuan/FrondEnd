@@ -40,6 +40,6 @@ h2 {
 .col-2 {
   position: relative;
   height: 100%;
-  padding: 0; /* Loại bỏ padding để viền sát ảnh */
+  padding: 0;
   margin: 0;
 }

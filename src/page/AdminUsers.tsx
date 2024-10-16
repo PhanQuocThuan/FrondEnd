@@ -22,6 +22,7 @@ const AdminUsers = () => {
     username: "",
     password: "",
   });
+  const [searchQuery, setSearchQuery] = useState("");
   const [editingUser, setEditingUser] = useState<string | null>(null);
   const usersCollection = collection(firestore, "users");
   const fetchUsers = async () => {
@@ -30,7 +31,7 @@ const AdminUsers = () => {
   };
   useEffect(() => {
     fetchUsers();
-  }, []);
+  });
 
   const addUser = async () => {
     await addDoc(usersCollection, newUser);
@@ -51,9 +52,24 @@ const AdminUsers = () => {
     fetchUsers();
   };
 
+  const filteredUsers = users.filter(
+    (user) =>
+      user.fullname.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
       <h1>Manage Users</h1>
+      <div>
+        <input
+          className="my-2"
+          type="text"
+          placeholder="Search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
 
       <div>
         <input
@@ -88,7 +104,7 @@ const AdminUsers = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {filteredUsers.map((user) => (
             <tr key={user.id}>
               {editingUser === user.id ? (
                 <>

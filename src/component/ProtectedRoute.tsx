@@ -1,35 +1,19 @@
-import React, { createContext, useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth"; // Giả sử bạn dùng Firebase
-import { auth } from "../firebase/firebase"; // Đảm bảo đúng đường dẫn
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
-interface AuthContextProps {
-  currentUser: any; // Thay đổi kiểu dữ liệu nếu cần
+interface ProtectedRouteProps {
+  children: JSX.Element;
 }
 
-export const AuthContext = createContext<AuthContextProps | null>(null);
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+  const auth = useAuth();
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [currentUser, setCurrentUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setLoading(false);
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
+  if (!auth || !auth.currentUser) {
+    return <Navigate to="/login" />;
   }
 
-  return (
-    <AuthContext.Provider value={{ currentUser }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return children;
 };
+
+export default ProtectedRoute;

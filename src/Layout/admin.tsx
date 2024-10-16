@@ -9,6 +9,8 @@ import {
   BellOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 const { Search } = Input;
@@ -17,6 +19,8 @@ const Admin: React.FC = () => {
   const [avatar, setAvatar] = useState(
     "https://example.com/your-avatar-url.png"
   );
+
+  const navigate = useNavigate();
 
   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -28,6 +32,13 @@ const Admin: React.FC = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+  const handleLogout = () => {
+    const auth = getAuth();
+    auth.signOut().then(() => {
+      localStorage.removeItem("userInfo");
+      navigate("/login");
+    });
   };
 
   return (
@@ -49,7 +60,10 @@ const Admin: React.FC = () => {
         </Menu>
       </Sider>
       <Layout>
-        <Header style={{ background: "#fff", padding: 0 }}>
+        <Header
+          className="d-flex justify-content-end"
+          style={{ background: "#fff", padding: 0 }}
+        >
           <div
             style={{
               display: "flex",
@@ -57,8 +71,8 @@ const Admin: React.FC = () => {
               padding: "0 16px",
             }}
           >
-            <Search placeholder="Search..." style={{ width: 200 }} />
             <div style={{ display: "flex", alignItems: "center" }}>
+              <button onClick={handleLogout}>Logout</button>
               <BellOutlined style={{ fontSize: 24, marginRight: 16 }} />
               <SettingOutlined style={{ fontSize: 24, marginRight: 16 }} />
               <Avatar size="large" src={avatar} />
@@ -77,7 +91,7 @@ const Admin: React.FC = () => {
         </Header>
         <Content style={{ margin: "16px" }}>
           <div style={{ padding: 24, background: "#fff", minHeight: 360 }}>
-            <Outlet /> {/* Outlet để render các trang con */}
+            <Outlet />
           </div>
         </Content>
       </Layout>
