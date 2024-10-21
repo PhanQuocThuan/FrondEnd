@@ -67,7 +67,8 @@ const AdminProducts = () => {
           `products/${new Date().getTime()}_${newProduct.imgFile.name}`
         );
         const snapshot = await uploadBytes(imgRef, newProduct.imgFile);
-        imgUrl = await getDownloadURL(snapshot.ref);
+        const originalUrl = await getDownloadURL(snapshot.ref);
+        imgUrl = `/images/cake/${newProduct.imgFile.name}`;
       }
 
       const { imgFile, ...productData } = newProduct;

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore"; // Firestore methods
-import { firestore } from "../firebase/firebase"; // Firestore
+import { collection, getDocs } from "firebase/firestore";
+import { firestore } from "../firebase/firebase";
 
 const Dashboard = () => {
-  const [orders, setOrders] = useState<any[]>([]); // Trạng thái lưu danh sách đơn hàng
-
-  // Fetch danh sách đơn hàng từ Firestore
+  const [orders, setOrders] = useState<any[]>([]);
   const fetchOrders = async () => {
     const orderCollection = collection(firestore, "orders");
     const orderSnapshot = await getDocs(orderCollection);
@@ -15,9 +13,32 @@ const Dashboard = () => {
     }));
     setOrders(orderList);
   };
+  const [users, setUsers] = useState<any[]>([]);
+  const fetchUsers = async () => {
+    const userCollection = collection(firestore, "users");
+    const userSnapshot = await getDocs(userCollection);
+    const userList = userSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    setUsers(userList);
+  };
+
+  const [products, setProducts] = useState<any[]>([]);
+  const fetchProducts = async () => {
+    const productCollection = collection(firestore, "products");
+    const productSnapshot = await getDocs(productCollection);
+    const productList = productSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    setProducts(productList);
+  };
 
   useEffect(() => {
     fetchOrders();
+    fetchUsers();
+    fetchProducts();
   }, []);
 
   return (
@@ -32,7 +53,7 @@ const Dashboard = () => {
               <div className="card text-white bg-primary mb-3">
                 <div className="card-body">
                   <h5 className="card-title">Người dùng</h5>
-                  <p className="card-text">1,234 người dùng</p>
+                  <p className="card-text">{users.length} người dùng</p>
                 </div>
               </div>
             </div>
@@ -40,7 +61,7 @@ const Dashboard = () => {
               <div className="card text-white bg-success mb-3">
                 <div className="card-body">
                   <h5 className="card-title">Sản phẩm</h5>
-                  <p className="card-text">567 sản phẩm</p>
+                  <p className="card-text">{products.length} sản phẩm</p>
                 </div>
               </div>
             </div>
@@ -56,7 +77,7 @@ const Dashboard = () => {
               <div className="card text-white bg-danger mb-3">
                 <div className="card-body">
                   <h5 className="card-title">Doanh thu</h5>
-                  <p className="card-text">$12,345</p>
+                  <p className="card-text"> vnd</p>
                 </div>
               </div>
             </div>
